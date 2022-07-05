@@ -10,7 +10,12 @@
 ### 具体的には
 1. 実装に使用している言語スキルの習得
 * C++ によるQtが主軸になるので、チュートリアルを進める
+  * https://www.qt.io/ja-jp/developers
+  * https://qt.misfrog.com/tocs/1
+  * 参考資料
+    * https://wiki.archlinux.jp/index.php/Qt
 * Git についてもコマンドチュートリアルをこなして慣れる
+  * [LearnGitBranchingへようこそ](http://k.swd.cc/learnGitBranching-ja/)
 
 -----
 ## 朝会で共有すること
