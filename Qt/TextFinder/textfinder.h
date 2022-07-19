@@ -15,7 +15,12 @@ public:
     TextFinder(QWidget *parent = nullptr);
     ~TextFinder();
 
+private slots:
+    void on_findButton_clicked();
+
 private:
     Ui::TextFinder *ui;
+    void loadTextFile();
+    void UiloadTextFile();
 };
 #endif // TEXTFINDER_H
