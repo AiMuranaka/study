@@ -1,5 +1,7 @@
 #include <QFile>
 #include <QTextStream>
+#include <QTextCursor>
+#include <QTextDocument>
 #include "textfinder.h"
 #include "ui_textfinder.h"
 
@@ -19,7 +21,7 @@ TextFinder::~TextFinder()
 
 void TextFinder::on_findButton_clicked()
 {
-    QString searchString = ui->lineEdit->text();
+    QString searchString = ui->lineEdit->toPlainText();
     ui->lineEdit->find(searchString, QTextDocument::FindWholeWords);
 }
 
