@@ -21,8 +21,8 @@ TextFinder::~TextFinder()
 
 void TextFinder::on_findButton_clicked()
 {
-    QString searchString = ui->lineEdit->toPlainText();
-    ui->lineEdit->find(searchString, QTextDocument::FindWholeWords);
+    QString searchString = ui->textEdit->toPlainText();
+    ui->textEdit->find(searchString, QTextDocument::FindWholeWords);
 }
 
 void TextFinder::loadTextFile()
@@ -34,8 +34,8 @@ void TextFinder::loadTextFile()
     QString line = in.readAll();
     inputFile.close();
 
-    ui->lineEdit->setPlainText(line);
-    QTextCursor cursor = ui->lineEdit->textCursor();
+    ui->textEdit->setPlainText(line);
+    QTextCursor cursor = ui->textEdit->textCursor();
     cursor.movePosition(QTextCursor::Start, QTextCursor::MoveAnchor, 1);
 }
 
