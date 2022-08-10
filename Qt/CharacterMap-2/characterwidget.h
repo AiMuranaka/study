@@ -1,4 +1,4 @@
-//#ifndef CHARACTERWIDGET_H
+#ifndef CHARACTERWIDGET_H
 #define CHARACTERWIDGET_H
 
 #include <QWidget>
@@ -38,3 +38,4 @@ private:
     int lastKey = -1;
     int squareSize = 0;
 };
+#endif
