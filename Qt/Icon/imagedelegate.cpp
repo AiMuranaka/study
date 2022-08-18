@@ -1,5 +1,6 @@
 #include "imagedelegate.h"
-
+#include "iconpreviewarea.h"
+#include <QComboBox>
 ImageDelegate::ImageDelegate(QObject *parent)
     : QStyledItemDelegate(parent)
 {}

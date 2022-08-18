@@ -62,6 +62,30 @@ QLabel *IconPreviewArea::createPixmapLabel()
     return label;
 }
 
+QVector<QIcon::Mode> IconPreviewArea::iconModes()
+{
+    static const QVector<QIcon::Mode> result = {QIcon::Normal, QIcon::Active, QIcon::Disabled, QIcon::Selected};
+    return result;
+}
+
+QVector<QIcon::State> IconPreviewArea::iconStates()
+{
+    static const QVector<QIcon::State> result = {QIcon::Off, QIcon::On};
+    return result;
+}
+
+QStringList IconPreviewArea::iconModeNames()
+{
+    static const QStringList result = {tr("Normal"), tr("Active"),tr("Disabled"),tr("Selected")};
+    return result;
+}
+
+QStringList IconPreviewArea::iconStateNames()
+{
+    static const QStringList result = {tr("Off"),tr("On")};
+    return result;
+}
+
 void IconPreviewArea::updatePixmapLabels()
 {
     QWindow *window = nullptr;
