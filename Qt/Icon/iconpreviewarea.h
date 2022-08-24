@@ -5,9 +5,10 @@
 #include <QVector>
 #include <QLabel>
 #include <QIcon>
+#include <QStringList>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class IconPreviewArea; }
+class QLabel;
 QT_END_NAMESPACE
 
 class IconPreviewArea : public QWidget

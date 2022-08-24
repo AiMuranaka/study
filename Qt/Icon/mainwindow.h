@@ -1,15 +1,19 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
-#include <QActionGroup>
-#include <QButtonGroup>
 
+#include <QIcon>
+#include <QList>
+#include <QMainWindow>
+#include <QPixmap>
+
+QT_BEGIN_NAMESPACE
 class QAction;
 class QActionGroup;
 class QLabel;
 class QButtonGroup;
 class QTableWidget;
+QT_END_NAMESPACE
 class IconPreviewArea;
 class IconSizeSpinBox;
 

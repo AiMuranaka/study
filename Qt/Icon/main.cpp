@@ -1,6 +1,3 @@
-//#include "iconpreviewarea.h"
-//#include "iconsizespinbox.h"
-//#include "imagedelegate.h"
 #include "mainwindow.h"
 #include <QApplication>
 #include <QCommandLineParser>
