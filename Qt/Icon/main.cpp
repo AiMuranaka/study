@@ -18,12 +18,14 @@ int main(int argc, char *argv[])
         commandLineParser.addPositionalArgument(MainWindow::tr("[file]"), MainWindow::tr("Icon file(s) to open."));
     commandLineParser.process(QCoreApplication::arguments());
 
-    if (!commandLineParser.isSet(noHighDpiPixmapOption))
+    if (!commandLineParser.isSet(noHighDpiPixmapOption)){
         QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+    }
 
     MainWindow mainWin;
-    if (!commandLineParser.positionalArguments().isEmpty())
+    if (!commandLineParser.positionalArguments().isEmpty()){
         mainWin.loadImages(commandLineParser.positionalArguments());
+    }
 
     const QRect availableGeometry = mainWin.screen()->availableGeometry();
     mainWin.resize(availableGeometry.width() / 2, availableGeometry.height() * 2 / 3);

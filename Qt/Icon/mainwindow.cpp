@@ -69,8 +69,9 @@ void MainWindow::about()
 
 void MainWindow::changeStyle(bool checked)
 {
-    if (!checked)
+    if (!checked){
         return;
+    }
 
     const QAction *action = qobject_cast<QAction *>(sender());
 
@@ -111,8 +112,9 @@ void MainWindow::changeStyle(bool checked)
 
 void MainWindow::changeSize(int id, bool checked)
 {
-    if (!checked)
+    if (!checked){
         return;
+    }
 
     const bool other = id == int(OtherSize);
     const int extent = other
@@ -133,17 +135,20 @@ void MainWindow::addImages(const QString &directory)
     QFileDialog fileDialog(this, tr("Open Images"), directory);
     QStringList mimeTypeFilters;
     const QList<QByteArray> mimeTypes = QImageReader::supportedMimeTypes();
-    for (const QByteArray &mimeTypeName : mimeTypes)
+    for (const QByteArray &mimeTypeName : mimeTypes){
         mimeTypeFilters.append(mimeTypeName);
+    }
     mimeTypeFilters.sort();
     fileDialog.setMimeTypeFilters(mimeTypeFilters);
     fileDialog.selectMimeTypeFilter(QLatin1String("image/png"));
     fileDialog.setAcceptMode(QFileDialog::AcceptOpen);
     fileDialog.setFileMode(QFileDialog::ExistingFiles);
-    if (!nativeFileDialogAct->isChecked())
+    if (!nativeFileDialogAct->isChecked()){
         fileDialog.setOption(QFileDialog::DontUseNativeDialog);
-    if (fileDialog.exec() == QDialog::Accepted)
+    }
+    if (fileDialog.exec() == QDialog::Accepted){
         loadImages(fileDialog.selectedFiles());
+    }
 }
 
 void MainWindow::removeAllImages()
@@ -172,8 +177,9 @@ void MainWindow::changeIcon()
             const QIcon::State state = IconPreviewArea::iconStates().at(stateIndex);
             const QString fileName = fileItem->data(Qt::UserRole).toString();
             QImage image(fileName);
-            if (!image.isNull())
+            if (!image.isNull()){
                 icon.addPixmap(QPixmap::fromImage(image), mode, state);
+            }
         }
     }
     previewArea->setIcon(icon);
@@ -182,8 +188,7 @@ void MainWindow::changeIcon()
 
 void MainWindow::addSampleImages()
 {
-//   addImages(QLatin1String("/images"));
-    addImages(QLatin1String("/images/designer.png") + QLatin1String("/images"));
+    addImages(QLatin1String("/Users/Muranaka/gitrepo/study/Qt/Icon/images"));
 }
 
 void MainWindow::addOtherImages()
@@ -206,14 +211,14 @@ void MainWindow::loadImages(const QStringList &fileNames)
         const QFileInfo fileInfo(fileName);
         const QString imageName = fileInfo.baseName();
         const QString fileName2x = fileInfo.absolutePath()
-            + QLatin1Char('/') + imageName + QLatin1String("@2x.") + fileInfo.suffix();
+                + QLatin1Char('/') + imageName + QLatin1String("@2x.") + fileInfo.suffix();
         const QFileInfo fileInfo2x(fileName2x);
         const QImage image(fileName);
         const QString toolTip =
-            tr("Directory: %1\nFile: %2\nFile@2x: %3\nSize: %4x%5")
-               .arg(QDir::toNativeSeparators(fileInfo.absolutePath()), fileInfo.fileName())
-               .arg(fileInfo2x.exists() ? fileInfo2x.fileName() : tr("<None>"))
-               .arg(image.width()).arg(image.height());
+                tr("Directory: %1\nFile: %2\nFile@2x: %3\nSize: %4x%5")
+                .arg(QDir::toNativeSeparators(fileInfo.absolutePath()), fileInfo.fileName())
+                .arg(fileInfo2x.exists() ? fileInfo2x.fileName() : tr("<None>"))
+                .arg(image.width()).arg(image.height());
         QTableWidgetItem *fileItem = new QTableWidgetItem(imageName);
         fileItem->setData(Qt::UserRole, fileName);
         fileItem->setIcon(QPixmap::fromImage(image));
@@ -223,24 +228,27 @@ void MainWindow::loadImages(const QStringList &fileNames)
         QIcon::Mode mode = QIcon::Normal;
         QIcon::State state = QIcon::Off;
         if (guessModeStateAct->isChecked()) {
-            if (imageName.contains(QLatin1String("_act"), Qt::CaseInsensitive))
+            if (imageName.contains(QLatin1String("_act"), Qt::CaseInsensitive)){
                 mode = QIcon::Active;
-            else if (imageName.contains(QLatin1String("_dis"), Qt::CaseInsensitive))
+            }
+            else if (imageName.contains(QLatin1String("_dis"), Qt::CaseInsensitive)){
                 mode = QIcon::Disabled;
-            else if (imageName.contains(QLatin1String("_sel"), Qt::CaseInsensitive))
+            }
+            else if (imageName.contains(QLatin1String("_sel"), Qt::CaseInsensitive)){
                 mode = QIcon::Selected;
-
-            if (imageName.contains(QLatin1String("_on"), Qt::CaseInsensitive))
+            }
+            if (imageName.contains(QLatin1String("_on"), Qt::CaseInsensitive)){
                 state = QIcon::On;
+            }
         }
 
         imagesTable->setItem(row, 0, fileItem);
         QTableWidgetItem *modeItem =
-            new QTableWidgetItem(IconPreviewArea::iconModeNames().at(IconPreviewArea::iconModes().indexOf(mode)));
+                new QTableWidgetItem(IconPreviewArea::iconModeNames().at(IconPreviewArea::iconModes().indexOf(mode)));
         modeItem->setToolTip(toolTip);
         imagesTable->setItem(row, 1, modeItem);
         QTableWidgetItem *stateItem =
-            new QTableWidgetItem(IconPreviewArea::iconStateNames().at(IconPreviewArea::iconStates().indexOf(state)));
+                new QTableWidgetItem(IconPreviewArea::iconStateNames().at(IconPreviewArea::iconStates().indexOf(state)));
         stateItem->setToolTip(toolTip);
         imagesTable->setItem(row, 2, stateItem);
         imagesTable->openPersistentEditor(modeItem);
@@ -262,8 +270,8 @@ void MainWindow::screenChanged()
     if (const QWindow *window = windowHandle()) {
         const QScreen *screen = window->screen();
         const QString screenDescription =
-            tr("\"%1\" (%2x%3)").arg(screen->name())
-               .arg(screen->geometry().width()).arg(screen->geometry().height());
+                tr("\"%1\" (%2x%3)").arg(screen->name())
+                .arg(screen->geometry().width()).arg(screen->geometry().height());
         screenNameLabel->setText(screenDescription);
     }
     changeIcon();
@@ -303,7 +311,7 @@ QWidget *MainWindow::createIconSizeGroupBox()
     sizeButtonGroup = new QButtonGroup(this);
     sizeButtonGroup->setExclusive(true);
 
-    connect(sizeButtonGroup, QOverload<int, bool>::of(&QButtonGroup::buttonToggled),
+    connect(sizeButtonGroup, QOverload<int, bool>::of(&QButtonGroup::idToggled),
             this, &MainWindow::changeSize);
 
     QRadioButton *smallRadioButton = new QRadioButton;
@@ -323,8 +331,8 @@ QWidget *MainWindow::createIconSizeGroupBox()
     otherSpinBox = new IconSizeSpinBox;
     otherSpinBox->setRange(8, 256);
     const QString spinBoxToolTip =
-        tr("Enter a custom size within %1..%2")
-           .arg(otherSpinBox->minimum()).arg(otherSpinBox->maximum());
+            tr("Enter a custom size within %1..%2")
+            .arg(otherSpinBox->minimum()).arg(otherSpinBox->maximum());
     otherSpinBox->setValue(64);
     otherSpinBox->setToolTip(spinBoxToolTip);
     otherRadioButton->setToolTip(spinBoxToolTip);

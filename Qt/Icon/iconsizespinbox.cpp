@@ -11,8 +11,9 @@ int IconSizeSpinBox::valueFromText(const QString &text) const
     Q_ASSERT(regExp.isValid());
 
     const QRegularExpressionMatch match = regExp.match(text);
-    if (match.isValid())
+    if (match.isValid()){
         return match.captured(1).toInt();
+    }
     return 0;
 }
 

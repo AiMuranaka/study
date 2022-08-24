@@ -89,8 +89,9 @@ QStringList IconPreviewArea::iconStateNames()
 void IconPreviewArea::updatePixmapLabels()
 {
     QWindow *window = nullptr;
-    if (const QWidget *nativeParent = nativeParentWidget())
+    if (const QWidget *nativeParent = nativeParentWidget()){
         window = nativeParent->windowHandle();
+    }
     for (int column = 0; column < NumModes; ++column) {
         for (int row = 0; row < NumStates; ++row) {
             const QPixmap pixmap =
