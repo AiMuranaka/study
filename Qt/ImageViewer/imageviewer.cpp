@@ -1,14 +1,22 @@
 #include "imageviewer.h"
 #include "ui_imageviewer.h"
+#include <QApplication>
+#include <QClipboard>
+#include <QColorSpace>
+#include <QDir>
+#include <QFileDialog>
+#include <QImageReader>
+#include <QImageWriter>
+#include <QLabel>
+#include <QMenuBar>
+#include <QMessageBox>
+#include <QMimeData>
+#include <QPainter>
 #include <QScreen>
 #include <QScrollArea>
-#include <QLabel>
-#include <QGuiApplication>
-#include <QFileDialog>
+#include <QScrollBar>
 #include <QStandardPaths>
-#include <QImageReader>
-#include <QMessageBox>
-#include <QImageWriter>
+#include <QStatusBar>
 
 ImageViewer::ImageViewer(QWidget *parent)
     : QMainWindow(parent), imageLabel(new QLabel)
@@ -41,14 +49,16 @@ static void initializeImageFileDialog(QFileDialog &dialog, QFileDialog::AcceptMo
     QStringList mimeTypeFilters;
     const QByteArrayList supportedMimeTypes = acceptMode == QFileDialog::AcceptOpen
             ? QImageReader::supportedMimeTypes() : QImageWriter::supportedMimeTypes();
-    for (const QByteArray &mimeTypeName : supportedMimeTypes)
+    for (const QByteArray &mimeTypeName : supportedMimeTypes){
         mimeTypeFilters.append(mimeTypeName);
+    }
     mimeTypeFilters.sort();
     dialog.setMimeTypeFilters(mimeTypeFilters);
     dialog.selectMimeTypeFilter("image/jpeg");
     dialog.setAcceptMode(acceptMode);
-    if (acceptMode == QFileDialog::AcceptSave)
+    if (acceptMode == QFileDialog::AcceptSave){
         dialog.setDefaultSuffix("jpg");
+    }
 }
 
 void ImageViewer::open()
@@ -121,8 +131,9 @@ void ImageViewer::fitToWindow()
 {
     bool fitToWindow = fitToWindowAct->isChecked();
     scrollArea->setWidgetResizable(fitToWindow);
-    if (!fitToWindow)
+    if (!fitToWindow){
         normalSize();
+    }
     updateActions();
 }
 
@@ -223,4 +234,85 @@ void ImageViewer::adjustScrollBar(QScrollBar *scrollBar, double factor)
 {
     scrollBar->setValue(int(factor * scrollBar->value()
                             + ((factor - 1) * scrollBar->pageStep()/2)));
+}
+
+bool ImageViewer::saveFile(const QString &fileName)
+{
+    QImageWriter writer(fileName);
+
+    if (!writer.write(image)) {
+        QMessageBox::information(this, QGuiApplication::applicationDisplayName(),
+                                 tr("Cannot write %1: %2")
+                                 .arg(QDir::toNativeSeparators(fileName)), writer.errorString());
+        return false;
+    }
+    const QString message = tr("Wrote \"%1\"").arg(QDir::toNativeSeparators(fileName));
+    statusBar()->showMessage(message);
+    return true;
+}
+
+void ImageViewer::setImage(const QImage &newImage)
+{
+    image = newImage;
+    if (image.colorSpace().isValid()){
+        image.convertToColorSpace(QColorSpace::SRgb);
+    }
+    imageLabel->setPixmap(QPixmap::fromImage(image));
+//! [4]
+    scaleFactor = 1.0;
+
+    scrollArea->setVisible(true);
+    printAct->setEnabled(true);
+    fitToWindowAct->setEnabled(true);
+    updateActions();
+
+    if (!fitToWindowAct->isChecked()){
+        imageLabel->adjustSize();
+    }
+}
+
+void ImageViewer::saveAs()
+{
+    QFileDialog dialog(this, tr("Save File As"));
+    initializeImageFileDialog(dialog, QFileDialog::AcceptSave);
+
+    while (dialog.exec() == QDialog::Accepted && !saveFile(dialog.selectedFiles().constFirst())) {}
+}
+
+void ImageViewer::copy()
+{
+#ifndef QT_NO_CLIPBOARD
+    QGuiApplication::clipboard()->setImage(image);
+#endif // !QT_NO_CLIPBOARD
+}
+
+#ifndef QT_NO_CLIPBOARD
+static QImage clipboardImage()
+{
+    if (const QMimeData *mimeData = QGuiApplication::clipboard()->mimeData()) {
+        if (mimeData->hasImage()) {
+            const QImage image = qvariant_cast<QImage>(mimeData->imageData());
+            if (!image.isNull()){
+                return image;
+            }
+        }
+    }
+    return QImage();
+}
+#endif // !QT_NO_CLIPBOARD
+
+void ImageViewer::paste()
+{
+#ifndef QT_NO_CLIPBOARD
+    const QImage newImage = clipboardImage();
+    if (newImage.isNull()) {
+        statusBar()->showMessage(tr("No image in clipboard"));
+    } else {
+        setImage(newImage);
+        setWindowFilePath(QString());
+        const QString message = tr("Obtained image from clipboard, %1x%2, Depth: %3")
+            .arg(newImage.width()).arg(newImage.height()).arg(newImage.depth());
+        statusBar()->showMessage(message);
+    }
+#endif // !QT_NO_CLIPBOARD
 }

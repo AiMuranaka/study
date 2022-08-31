@@ -22,10 +22,10 @@ public:
 
 private slots:
     void open();
-    //    void saveAs();
-    //    void print();
-    //   void copy();
-    //    void paste();
+    void saveAs();
+    void print();
+    void copy();
+    void paste();
     void zoomIn();
     void zoomOut();
     void normalSize();
@@ -34,10 +34,10 @@ private slots:
 
 private:
     void createActions();
-//    void createMenus();
+    void createMenus();
     void updateActions();
-//    bool saveFile(const QString &fileName);
-//    void setImage(const QImage &newImage);
+    bool saveFile(const QString &fileName);
+    void setImage(const QImage &newImage);
     void scaleImage(double factor);
     void adjustScrollBar(QScrollBar *scrollBar, double factor);
 
