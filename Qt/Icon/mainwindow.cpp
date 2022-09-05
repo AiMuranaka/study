@@ -188,7 +188,8 @@ void MainWindow::changeIcon()
 
 void MainWindow::addSampleImages()
 {
-    addImages(QLatin1String("/study/Qt/build-Icon-Desktop_Qt_5_15_2_MinGW_64_bit-Debug/debug/images"));
+    QString link = QApplication::applicationDirPath();
+    addImages(link+"/images");
 }
 
 void MainWindow::addOtherImages()
