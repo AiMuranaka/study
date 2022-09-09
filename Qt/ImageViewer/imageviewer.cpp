@@ -258,7 +258,7 @@ void ImageViewer::setImage(const QImage &newImage)
         image.convertToColorSpace(QColorSpace::SRgb);
     }
     imageLabel->setPixmap(QPixmap::fromImage(image));
-//! [4]
+
     scaleFactor = 1.0;
 
     scrollArea->setVisible(true);
