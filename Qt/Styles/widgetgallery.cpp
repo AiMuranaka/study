@@ -1,8 +1,9 @@
 #include "widgetgallery.h"
 #include "ui_widgetgallery.h"
-
+#include "norwegianwoodstyle.h"
 #include <QHBoxLayout>
 #include <QGroupBox>
+#include <QTimer>
 #include <QStyleFactory>
 
 WidgetGallery::WidgetGallery(QWidget *parent)
@@ -29,10 +30,10 @@ WidgetGallery::WidgetGallery(QWidget *parent)
     disableWidgetsCheckBox = new QCheckBox(tr("&Disable widgets"));
 
     createTopLeftGroupBox();
-    createTopRightGroupBox();
-    createBottomLeftTabWidget();
-    createBottomRightGroupBox();
-    createProgressBar();
+//    createTopRightGroupBox();
+//    createBottomLeftTabWidget();
+//    createBottomRightGroupBox();
+//    createProgressBar();
 
     connect(styleComboBox, &QComboBox::textActivated,
             this, &WidgetGallery::changeStyle);
@@ -40,12 +41,14 @@ WidgetGallery::WidgetGallery(QWidget *parent)
             this, &WidgetGallery::changePalette);
     connect(disableWidgetsCheckBox, &QCheckBox::toggled,
             topLeftGroupBox, &QGroupBox::setDisabled);
+    /*
     connect(disableWidgetsCheckBox, &QCheckBox::toggled,
             topRightGroupBox, &QGroupBox::setDisabled);
     connect(disableWidgetsCheckBox, &QCheckBox::toggled,
             bottomLeftTabWidget, &QGroupBox::setDisabled);
     connect(disableWidgetsCheckBox, &QCheckBox::toggled,
             bottomRightGroupBox, &QGroupBox::setDisabled);
+    */
 
     QHBoxLayout *topLayout = new QHBoxLayout;
     topLayout->addWidget(styleLabel);
@@ -57,10 +60,13 @@ WidgetGallery::WidgetGallery(QWidget *parent)
     QGridLayout *mainLayout = new QGridLayout;
     mainLayout->addLayout(topLayout, 0, 0, 1, 2);
     mainLayout->addWidget(topLeftGroupBox, 1, 0);
+    /*
     mainLayout->addWidget(topRightGroupBox, 1, 1);
     mainLayout->addWidget(bottomLeftTabWidget, 2, 0);
     mainLayout->addWidget(bottomRightGroupBox, 2, 1);
+
     mainLayout->addWidget(progressBar, 3, 0, 1, 2);
+    */
     mainLayout->setRowStretch(1, 1);
     mainLayout->setRowStretch(2, 1);
     mainLayout->setColumnStretch(0, 1);
@@ -71,17 +77,12 @@ WidgetGallery::WidgetGallery(QWidget *parent)
     styleChanged();
 }
 
-
 void WidgetGallery::changeStyle(const QString &styleName)
 {
     if (styleName == "NorwegianWood")
-    {
         QApplication::setStyle(new NorwegianWoodStyle);
-    }
     else
-    {
         QApplication::setStyle(QStyleFactory::create(styleName));
-    }
 }
 
 void WidgetGallery::changePalette()
@@ -90,6 +91,24 @@ void WidgetGallery::changePalette()
         QApplication::style()->standardPalette() : QPalette());
 }
 
+void WidgetGallery::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::StyleChange)
+        styleChanged();
+}
+
+void WidgetGallery::styleChanged()
+{
+    auto styleName = QApplication::style()->objectName();
+    for (int i = 0; i < styleComboBox->count(); ++i) {
+        if (QString::compare(styleComboBox->itemText(i), styleName, Qt::CaseInsensitive) == 0) {
+            styleComboBox->setCurrentIndex(i);
+            break;
+        }
+    }
+
+    changePalette();
+}
 void WidgetGallery::advanceProgressBar()
 {
     int curVal = progressBar->value();
@@ -129,3 +148,5 @@ void WidgetGallery::createProgressBar()
     connect(timer, &QTimer::timeout, this, &WidgetGallery::advanceProgressBar);
     timer->start(1000);
 }
+
+
