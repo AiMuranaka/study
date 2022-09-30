@@ -2,7 +2,14 @@
 #include "ui_widgetgallery.h"
 #include "norwegianwoodstyle.h"
 #include <QHBoxLayout>
+#include <QApplication>
+#include <QDateTimeEdit>
 #include <QGroupBox>
+#include <QPushButton>
+#include <QTabWidget>
+#include <QDateTime>
+#include <QLineEdit>
+#include <QScrollBar>
 #include <QTimer>
 #include <QStyleFactory>
 
@@ -30,10 +37,13 @@ WidgetGallery::WidgetGallery(QWidget *parent)
     disableWidgetsCheckBox = new QCheckBox(tr("&Disable widgets"));
 
     createTopLeftGroupBox();
-//    createTopRightGroupBox();
-//    createBottomLeftTabWidget();
-//    createBottomRightGroupBox();
-//    createProgressBar();
+    createTopRightGroupBox();
+
+    createBottomLeftTabWidget();
+
+    createBottomRightGroupBox();
+
+    createProgressBar();
 
     connect(styleComboBox, &QComboBox::textActivated,
             this, &WidgetGallery::changeStyle);
@@ -41,14 +51,14 @@ WidgetGallery::WidgetGallery(QWidget *parent)
             this, &WidgetGallery::changePalette);
     connect(disableWidgetsCheckBox, &QCheckBox::toggled,
             topLeftGroupBox, &QGroupBox::setDisabled);
-    /*
     connect(disableWidgetsCheckBox, &QCheckBox::toggled,
             topRightGroupBox, &QGroupBox::setDisabled);
     connect(disableWidgetsCheckBox, &QCheckBox::toggled,
             bottomLeftTabWidget, &QGroupBox::setDisabled);
+
     connect(disableWidgetsCheckBox, &QCheckBox::toggled,
             bottomRightGroupBox, &QGroupBox::setDisabled);
-    */
+
 
     QHBoxLayout *topLayout = new QHBoxLayout;
     topLayout->addWidget(styleLabel);
@@ -60,13 +70,15 @@ WidgetGallery::WidgetGallery(QWidget *parent)
     QGridLayout *mainLayout = new QGridLayout;
     mainLayout->addLayout(topLayout, 0, 0, 1, 2);
     mainLayout->addWidget(topLeftGroupBox, 1, 0);
-    /*
+
     mainLayout->addWidget(topRightGroupBox, 1, 1);
+
     mainLayout->addWidget(bottomLeftTabWidget, 2, 0);
+
     mainLayout->addWidget(bottomRightGroupBox, 2, 1);
 
     mainLayout->addWidget(progressBar, 3, 0, 1, 2);
-    */
+
     mainLayout->setRowStretch(1, 1);
     mainLayout->setRowStretch(2, 1);
     mainLayout->setColumnStretch(0, 1);
@@ -136,6 +148,97 @@ void WidgetGallery::createTopLeftGroupBox()
     layout->addWidget(checkBox);
     layout->addStretch(1);
     topLeftGroupBox->setLayout(layout);
+}
+void WidgetGallery::createTopRightGroupBox()
+{
+    topRightGroupBox = new QGroupBox(tr("Group 2"));
+
+    defaultPushButton = new QPushButton(tr("Default Push Button"));
+    defaultPushButton->setDefault(true);
+
+    togglePushButton = new QPushButton(tr("Toggle Push Button"));
+    togglePushButton->setCheckable(true);
+    togglePushButton->setChecked(true);
+
+    flatPushButton = new QPushButton(tr("Flat Push Button"));
+    flatPushButton->setFlat(true);
+
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->addWidget(defaultPushButton);
+    layout->addWidget(togglePushButton);
+    layout->addWidget(flatPushButton);
+    layout->addStretch(1);
+    topRightGroupBox->setLayout(layout);
+}
+
+
+void WidgetGallery::createBottomLeftTabWidget()
+{
+    bottomLeftTabWidget = new QTabWidget;
+    bottomLeftTabWidget->setSizePolicy(QSizePolicy::Preferred,
+                                       QSizePolicy::Ignored);
+
+    QWidget *tab1 = new QWidget;
+    tableWidget = new QTableWidget(10,10);
+
+    QHBoxLayout *tab1hbox = new QHBoxLayout;
+    tab1hbox->setContentsMargins(5,5, 5, 5);
+    tab1hbox->addWidget(tableWidget);
+    tab1->setLayout(tab1hbox);
+
+    QWidget *tab2 = new QWidget;
+    textEdit = new QTextEdit;
+
+    textEdit->setPlainText(tr("Twinkle, twinkle, little star,\n"
+                              "How I wonder what you are.\n"
+                              "Up above the world so high,\n"
+                              "Like a diamond in the sky.\n"
+                              "Twinkle, twinkle, little star,\n"
+                              "How I wonder what you are!\n"));
+
+    QHBoxLayout *tab2hbox = new QHBoxLayout;
+    tab2hbox->setContentsMargins(5, 5, 5, 5);
+    tab2hbox->addWidget(textEdit);
+    tab2->setLayout(tab2hbox);
+
+    bottomLeftTabWidget->addTab(tab1, tr("&Table"));
+    bottomLeftTabWidget->addTab(tab2, tr("Text &Edit"));
+}
+
+void WidgetGallery::createBottomRightGroupBox()
+{
+    bottomRightGroupBox = new QGroupBox(tr("Group 3"));
+    bottomRightGroupBox->setCheckable(true);
+    bottomRightGroupBox->setChecked(true);
+
+    lineEdit = new QLineEdit("s3cRe7");
+    lineEdit->setEchoMode(QLineEdit::Password);
+
+    spinBox = new QSpinBox(bottomRightGroupBox);
+    spinBox->setValue(50);
+
+    dateTimeEdit = new QDateTimeEdit(bottomRightGroupBox);
+    dateTimeEdit->setDateTime(QDateTime::currentDateTime());
+
+    slider = new QSlider(Qt::Horizontal, bottomRightGroupBox);
+    slider->setValue(40);
+
+    scrollBar = new QScrollBar(Qt::Horizontal, bottomRightGroupBox);
+    scrollBar->setValue(60);
+
+    dial = new QDial(bottomRightGroupBox);
+    dial->setValue(30);
+    dial->setNotchesVisible(true);
+
+    QGridLayout *layout = new QGridLayout;
+    layout->addWidget(lineEdit, 0, 0, 1, 2);
+    layout->addWidget(spinBox, 1, 0, 1, 2);
+    layout->addWidget(dateTimeEdit, 2, 0, 1, 2);
+    layout->addWidget(slider, 3, 0);
+    layout->addWidget(scrollBar, 4, 0);
+    layout->addWidget(dial, 3, 1, 2, 1);
+    layout->setRowStretch(5, 1);
+    bottomRightGroupBox->setLayout(layout);
 }
 
 void WidgetGallery::createProgressBar()

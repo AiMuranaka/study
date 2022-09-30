@@ -20,12 +20,10 @@ QPalette NorwegianWoodStyle::standardPalette() const
         QColor beige(236, 182, 120);
         QColor slightlyOpaqueBlack(0, 0, 0, 63);
 
-//        QString link = QApplication::applicationDirPath();
-//        QImage backgroundImage(link+"/images/woodbackground.png");
-//        QImage buttonImage(link+"/images/woodbutton.png");
+        QString link = QApplication::applicationDirPath();
+        QImage backgroundImage(link+"/../../Styles/images/woodbackground.png");
+        QImage buttonImage(link+"/../../Styles/images/woodbutton.png");
 
-        QImage backgroundImage("C:/Users/Muranaka/gitrepo/study/Qt/Styles/images/woodbackground.png");
-        QImage buttonImage("C:/Users/Muranaka/gitrepo/study/Qt/Styles/images/woodbutton.png");
         QImage midImage = buttonImage.convertToFormat(QImage::Format_RGB32);
 
         QPainter painter;

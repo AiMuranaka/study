@@ -8,6 +8,8 @@
 #include <QGroupBox>
 #include <QSpinBox>
 #include <QRadioButton>
+#include <QTableWidget>
+#include <QDateTimeEdit>
 #include <QTextEdit>
 #include <QDial>
 #include <QProgressBar>
@@ -43,6 +45,7 @@ private:
     QComboBox *styleComboBox;
     QCheckBox *useStylePaletteCheckBox;
     QCheckBox *disableWidgetsCheckBox;
+//! [0]
 
     QGroupBox *topLeftGroupBox;
     QRadioButton *radioButton1;
@@ -56,13 +59,13 @@ private:
     QPushButton *flatPushButton;
 
     QTabWidget *bottomLeftTabWidget;
-    QTabWidget *tableWidget;
+    QTableWidget *tableWidget;
     QTextEdit *textEdit;
 
     QGroupBox *bottomRightGroupBox;
     QLineEdit *lineEdit;
     QSpinBox *spinBox;
-    QDateTime *dateTimeEdit;
+    QDateTimeEdit *dateTimeEdit;
     QSlider *slider;
     QScrollBar *scrollBar;
     QDial *dial;
