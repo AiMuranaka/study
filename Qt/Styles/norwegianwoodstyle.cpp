@@ -1,5 +1,4 @@
 #include "norwegianwoodstyle.h"
-
 #include <QStyleFactory>
 #include <QPainter>
 #include <QPushButton>
@@ -52,22 +51,23 @@ QPalette NorwegianWoodStyle::standardPalette() const
 
         m_standardPalette = palette;
     }
-
     return m_standardPalette;
 }
 
 void NorwegianWoodStyle::polish(QWidget *widget)
 {
     if (qobject_cast<QPushButton *>(widget)
-            || qobject_cast<QComboBox *>(widget))
+            || qobject_cast<QComboBox *>(widget)){
         widget->setAttribute(Qt::WA_Hover, true);
+    }
 }
 
 void NorwegianWoodStyle::unpolish(QWidget *widget)
 {
     if (qobject_cast<QPushButton *>(widget)
-            || qobject_cast<QComboBox *>(widget))
+            || qobject_cast<QComboBox *>(widget)){
         widget->setAttribute(Qt::WA_Hover, false);
+    }
 }
 
 int NorwegianWoodStyle::pixelMetric(PixelMetric metric,
@@ -105,92 +105,94 @@ void NorwegianWoodStyle::drawPrimitive(PrimitiveElement element,
 {
     switch (element) {
     case PE_PanelButtonCommand:
-        {
-            int delta = (option->state & State_MouseOver) ? 64 : 0;
-            QColor slightlyOpaqueBlack(0, 0, 0, 63);
-            QColor semiTransparentWhite(255, 255, 255, 127 + delta);
-            QColor semiTransparentBlack(0, 0, 0, 127 - delta);
+    {
+        int delta = (option->state & State_MouseOver) ? 64 : 0;
+        QColor slightlyOpaqueBlack(0, 0, 0, 63);
+        QColor semiTransparentWhite(255, 255, 255, 127 + delta);
+        QColor semiTransparentBlack(0, 0, 0, 127 - delta);
 
-            int x, y, width, height;
-            option->rect.getRect(&x, &y, &width, &height);
+        int x, y, width, height;
+        option->rect.getRect(&x, &y, &width, &height);
 
-            QPainterPath roundRect = roundRectPath(option->rect);
-            int radius = qMin(width, height) / 2;
+        QPainterPath roundRect = roundRectPath(option->rect);
+        int radius = qMin(width, height) / 2;
 
-            QBrush brush;
-            bool darker;
+        QBrush brush;
+        bool darker;
 
-            const QStyleOptionButton *buttonOption =
-                    qstyleoption_cast<const QStyleOptionButton *>(option);
-            if (buttonOption
-                    && (buttonOption->features & QStyleOptionButton::Flat)) {
-                brush = option->palette.window();
-                darker = (option->state & (State_Sunken | State_On));
+        const QStyleOptionButton *buttonOption =
+                qstyleoption_cast<const QStyleOptionButton *>(option);
+        if (buttonOption
+                && (buttonOption->features & QStyleOptionButton::Flat)) {
+            brush = option->palette.window();
+            darker = (option->state & (State_Sunken | State_On));
+        } else {
+            if (option->state & (State_Sunken | State_On)) {
+                brush = option->palette.mid();
+                darker = !(option->state & State_Sunken);
             } else {
-                if (option->state & (State_Sunken | State_On)) {
-                    brush = option->palette.mid();
-                    darker = !(option->state & State_Sunken);
-                } else {
-                    brush = option->palette.button();
-                    darker = false;
-                }
+                brush = option->palette.button();
+                darker = false;
             }
-
-            painter->save();
-            painter->setRenderHint(QPainter::Antialiasing, true);
-            painter->fillPath(roundRect, brush);
-            if (darker)
-                painter->fillPath(roundRect, slightlyOpaqueBlack);
-
-            int penWidth;
-            if (radius < 10)
-                penWidth = 3;
-            else if (radius < 20)
-                penWidth = 5;
-            else
-                penWidth = 7;
-
-            QPen topPen(semiTransparentWhite, penWidth);
-            QPen bottomPen(semiTransparentBlack, penWidth);
-
-            if (option->state & (State_Sunken | State_On))
-                qSwap(topPen, bottomPen);
-
-            int x1 = x;
-            int x2 = x + radius;
-            int x3 = x + width - radius;
-            int x4 = x + width;
-
-            if (option->direction == Qt::RightToLeft) {
-                qSwap(x1, x4);
-                qSwap(x2, x3);
-            }
-
-            QPolygon topHalf;
-            topHalf << QPoint(x1, y)
-                    << QPoint(x4, y)
-                    << QPoint(x3, y + radius)
-                    << QPoint(x2, y + height - radius)
-                    << QPoint(x1, y + height);
-
-            painter->setClipPath(roundRect);
-            painter->setClipRegion(topHalf, Qt::IntersectClip);
-            painter->setPen(topPen);
-            painter->drawPath(roundRect);
-            QPolygon bottomHalf = topHalf;
-            bottomHalf[0] = QPoint(x4, y + height);
-
-            painter->setClipPath(roundRect);
-            painter->setClipRegion(bottomHalf, Qt::IntersectClip);
-            painter->setPen(bottomPen);
-            painter->drawPath(roundRect);
-
-            painter->setPen(option->palette.windowText().color());
-            painter->setClipping(false);
-            painter->drawPath(roundRect);
-
-            painter->restore();
         }
+
+        painter->save();
+        painter->setRenderHint(QPainter::Antialiasing, true);
+        painter->fillPath(roundRect, brush);
+        if (darker){
+            painter->fillPath(roundRect, slightlyOpaqueBlack);
+        }
+        int penWidth;
+        if (radius < 10){
+            penWidth = 3;
+        }
+        else if (radius < 20){
+            penWidth = 5;
+        }
+        else{
+            penWidth = 7;
+        }
+        QPen topPen(semiTransparentWhite, penWidth);
+        QPen bottomPen(semiTransparentBlack, penWidth);
+
+        if (option->state & (State_Sunken | State_On)){
+            qSwap(topPen, bottomPen);
+        }
+        int x1 = x;
+        int x2 = x + radius;
+        int x3 = x + width - radius;
+        int x4 = x + width;
+
+        if (option->direction == Qt::RightToLeft) {
+            qSwap(x1, x4);
+            qSwap(x2, x3);
+        }
+
+        QPolygon topHalf;
+        topHalf << QPoint(x1, y)
+                << QPoint(x4, y)
+                << QPoint(x3, y + radius)
+                << QPoint(x2, y + height - radius)
+                << QPoint(x1, y + height);
+
+        painter->setClipPath(roundRect);
+        painter->setClipRegion(topHalf, Qt::IntersectClip);
+        painter->setPen(topPen);
+        painter->drawPath(roundRect);
+        QPolygon bottomHalf = topHalf;
+        bottomHalf[0] = QPoint(x4, y + height);
+
+        painter->setClipPath(roundRect);
+        painter->setClipRegion(bottomHalf, Qt::IntersectClip);
+        painter->setPen(bottomPen);
+        painter->drawPath(roundRect);
+
+        painter->setPen(option->palette.windowText().color());
+        painter->setClipping(false);
+        painter->drawPath(roundRect);
+
+        painter->restore();
+    }
         break;
     default:
         QProxyStyle::drawPrimitive(element, option, painter, widget);
@@ -204,22 +206,22 @@ void NorwegianWoodStyle::drawControl(ControlElement element,
 {
     switch (element) {
     case CE_PushButtonLabel:
-        {
-            QStyleOptionButton myButtonOption;
-            const QStyleOptionButton *buttonOption =
-                    qstyleoption_cast<const QStyleOptionButton *>(option);
-            if (buttonOption) {
-                myButtonOption = *buttonOption;
-                if (myButtonOption.palette.currentColorGroup()
-                        != QPalette::Disabled) {
-                    if (myButtonOption.state & (State_Sunken | State_On)) {
-                        myButtonOption.palette.setBrush(QPalette::ButtonText,
-                                myButtonOption.palette.brightText());
-                    }
+    {
+        QStyleOptionButton myButtonOption;
+        const QStyleOptionButton *buttonOption =
+                qstyleoption_cast<const QStyleOptionButton *>(option);
+        if (buttonOption) {
+            myButtonOption = *buttonOption;
+            if (myButtonOption.palette.currentColorGroup()
+                    != QPalette::Disabled) {
+                if (myButtonOption.state & (State_Sunken | State_On)) {
+                    myButtonOption.palette.setBrush(QPalette::ButtonText,
+                                                    myButtonOption.palette.brightText());
                 }
             }
-            QProxyStyle::drawControl(element, &myButtonOption, painter, widget);
         }
+        QProxyStyle::drawControl(element, &myButtonOption, painter, widget);
+    }
         break;
     default:
         QProxyStyle::drawControl(element, option, painter, widget);
