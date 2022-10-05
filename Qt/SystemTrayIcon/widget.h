@@ -20,7 +20,6 @@ class QSpinBox;
 class QTextEdit;
 QT_END_NAMESPACE
 
-//! [0]
 class Widget : public QDialog
 {
     Q_OBJECT
@@ -70,7 +69,6 @@ private:
     QSystemTrayIcon *trayIcon;
     QMenu *trayIconMenu;
 };
-//! [0]
 
 #endif // QT_NO_SYSTEMTRAYICON
 

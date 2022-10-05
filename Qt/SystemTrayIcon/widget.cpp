@@ -1,5 +1,7 @@
 #include "widget.h"
-#include "ui_widget.h"
+
+#ifndef QT_NO_SYSTEMTRAYICON
+
 #include <QAction>
 #include <QCheckBox>
 #include <QComboBox>
@@ -42,6 +44,32 @@ Widget::Widget()
 
     setWindowTitle(tr("Systray"));
     resize(400, 300);
+}
+
+void Widget::setVisible(bool visible)
+{
+    minimizeAction->setEnabled(visible);
+    maximizeAction->setEnabled(!isMaximized());
+    restoreAction->setEnabled(isMaximized() || !visible);
+    QDialog::setVisible(visible);
+}
+
+void Widget::closeEvent(QCloseEvent *event)
+{
+#ifdef Q_OS_MACOS
+    if (!event->spontaneous() || !isVisible()) {
+        return;
+    }
+#endif
+    if (trayIcon->isVisible()) {
+        QMessageBox::information(this, tr("Systray"),
+                                 tr("The program will keep running in the "
+                                    "system tray. To terminate the program, "
+                                    "choose <b>Quit</b> in the context menu "
+                                    "of the system tray entry."));
+        hide();
+        event->ignore();
+    }
 }
 
 void Widget::setIcon(int index)
@@ -91,31 +119,6 @@ void Widget::messageClicked()
                                 "Maybe you should try asking a human?"));
 }
 
-void Widget::setVisible(bool visible)
-{
-    minimizeAction->setEnabled(visible);
-    maximizeAction->setEnabled(!isMaximized());
-    restoreAction->setEnabled(isMaximized() || !visible);
-    QDialog::setVisible(visible);
-}
-
-void Widget::closeEvent(QCloseEvent *event)
-{
-#ifdef Q_OS_MACOS
-    if (!event->spontaneous() || !isVisible()) {
-        return;
-    }
-#endif
-    if (trayIcon->isVisible()) {
-        QMessageBox::information(this, tr("Systray"),
-                                 tr("The program will keep running in the "
-                                    "system tray. To terminate the program, "
-                                    "choose <b>Quit</b> in the context menu "
-                                    "of the system tray entry."));
-        hide();
-        event->ignore();
-    }
-}
 void Widget::createIconGroupBox()
 {
     iconGroupBox = new QGroupBox(tr("Tray Icon"));
@@ -226,3 +229,5 @@ void Widget::createTrayIcon()
     trayIcon = new QSystemTrayIcon(this);
     trayIcon->setContextMenu(trayIconMenu);
 }
+
+#endif

@@ -7,7 +7,7 @@
 
 int main(int argc, char *argv[])
 {
-    Q_INIT_RESOURCE(systray);
+    Q_INIT_RESOURCE(SystemTrayIcon);
 
     QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 
@@ -46,4 +46,3 @@ int main(int argc, char *argv[])
 }
 
 #endif
-
