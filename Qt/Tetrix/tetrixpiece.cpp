@@ -60,9 +60,9 @@ int TetrixPiece::maxY() const
 
 TetrixPiece TetrixPiece::rotatedLeft() const
 {
-    if (pieceShape == SquareShape)
+    if (pieceShape == SquareShape){
         return *this;
-
+    }
     TetrixPiece result;
     result.pieceShape = pieceShape;
     for (int i = 0; i < 4; ++i) {
@@ -74,9 +74,9 @@ TetrixPiece TetrixPiece::rotatedLeft() const
 
 TetrixPiece TetrixPiece::rotatedRight() const
 {
-    if (pieceShape == SquareShape)
+    if (pieceShape == SquareShape){
         return *this;
-
+    }
     TetrixPiece result;
     result.pieceShape = pieceShape;
     for (int i = 0; i < 4; ++i) {

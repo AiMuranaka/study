@@ -32,9 +32,9 @@ QSize TetrixBoard::minimumSizeHint() const
 
 void TetrixBoard::start()
 {
-    if (isPaused)
+    if (isPaused){
         return;
-
+    }
     isStarted = true;
     isWaitingAfterLine = false;
     numLinesRemoved = 0;
@@ -53,9 +53,9 @@ void TetrixBoard::start()
 
 void TetrixBoard::pause()
 {
-    if (!isStarted)
+    if (!isStarted){
         return;
-
+    }
     isPaused = !isPaused;
     if (isPaused) {
         timer.stop();
@@ -165,8 +165,9 @@ void TetrixBoard::dropDown()
 
 void TetrixBoard::oneLineDown()
 {
-    if (!tryMove(curPiece, curX, curY - 1))
+    if (!tryMove(curPiece, curX, curY - 1)){
         pieceDropped(0);
+    }
 }
 
 void TetrixBoard::pieceDropped(int dropHeight)
@@ -247,9 +248,9 @@ void TetrixBoard::newPiece()
 
 void TetrixBoard::showNextPiece()
 {
-    if (!nextPieceLabel)
+    if (!nextPieceLabel){
         return;
-
+    }
     int dx = nextPiece.maxX() - nextPiece.minX() + 1;
     int dy = nextPiece.maxY() - nextPiece.minY() + 1;
 
