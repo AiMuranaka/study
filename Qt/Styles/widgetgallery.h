@@ -45,7 +45,6 @@ private:
     QComboBox *styleComboBox;
     QCheckBox *useStylePaletteCheckBox;
     QCheckBox *disableWidgetsCheckBox;
-//! [0]
 
     QGroupBox *topLeftGroupBox;
     QRadioButton *radioButton1;
