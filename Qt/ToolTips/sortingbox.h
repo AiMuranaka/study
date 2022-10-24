@@ -5,7 +5,7 @@
 #include <QToolButton>
 #include <QVector>
 #include <QPainterPath>
-
+#include "shapeitem.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class SortingBox; }
 QT_END_NAMESPACE

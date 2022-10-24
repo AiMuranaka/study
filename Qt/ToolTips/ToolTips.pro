@@ -10,9 +10,11 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
+    shapeitem.cpp \
     sortingbox.cpp
 
 HEADERS += \
+    shapeitem.h \
     sortingbox.h
 
 FORMS += \
