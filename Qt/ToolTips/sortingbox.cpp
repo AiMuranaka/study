@@ -1,5 +1,6 @@
 #include "sortingbox.h"
 
+#include <QApplication>
 #include <QMouseEvent>
 #include <QIcon>
 #include <QPainter>
@@ -16,16 +17,17 @@ SortingBox::SortingBox(QWidget *parent)
 
     itemInMotion = nullptr;
 
+    QString link = QApplication::applicationDirPath();
     newCircleButton = createToolButton(tr("New Circle"),
-                                       QIcon(":/images/circle.png"),
+                                       QIcon(link+"/../../ToolTips/images/circle.png"),
                                        SLOT(createNewCircle()));
 
     newSquareButton = createToolButton(tr("New Square"),
-                                       QIcon(":/images/square.png"),
+                                       QIcon(link+"/../../ToolTips/images/square.png"),
                                        SLOT(createNewSquare()));
 
     newTriangleButton = createToolButton(tr("New Triangle"),
-                                         QIcon(":/images/triangle.png"),
+                                         QIcon(link+"/../../ToolTips/images/triangle.png"),
                                          SLOT(createNewTriangle()));
 
     circlePath.addEllipse(QRect(0, 0, 100, 100));
@@ -68,7 +70,7 @@ bool SortingBox::event(QEvent *event)
 
 void SortingBox::resizeEvent(QResizeEvent * /* event */)
 {
-    int margin = style()->pixelMetric(QStyle::PM_LayoutTopMargin);
+    int margin = style()->pixelMetric(QStyle::PM_DefaultFrameWidth);
     int x = width() - margin;
     int y = height() - margin;
 
@@ -162,7 +164,8 @@ int SortingBox::updateButtonGeometry(QToolButton *button, int x, int y)
                         size.rwidth(), size.rheight());
 
     return y - size.rheight()
-           - style()->pixelMetric(QStyle::PM_LayoutVerticalSpacing);
+           - style()->pixelMetric(QStyle::PM_LayoutVerticalSpacing
+                                  );
 }
 
 void SortingBox::createShapeItem(const QPainterPath &path,
@@ -193,7 +196,8 @@ QToolButton *SortingBox::createToolButton(const QString &toolTip,
 QPoint SortingBox::initialItemPosition(const QPainterPath &path)
 {
     int x;
-    int y = (height() - qRound(path.controlPointRect().height()) / 2);
+    int y = (height()/3);
+ //   int y = (height() - qRound(path.controlPointRect().height()));
     if (shapeItems.size() == 0)
         x = ((3 * width()) / 2 - qRound(path.controlPointRect().width())) / 2;
     else

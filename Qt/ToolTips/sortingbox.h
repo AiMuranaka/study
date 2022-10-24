@@ -40,7 +40,7 @@ private:
     QPoint randomItemPosition();
     QColor initialItemColor();
     QColor randomItemColor();
-    QToolButton *createToolButton(const QString &toolTip, const QIcon &icon);
+    QToolButton *createToolButton(const QString &toolTip, const QIcon &icon, const char *member);
     QVector<ShapeItem> shapeItems;
     QPainterPath circlePath;
     QPainterPath squarePath;
