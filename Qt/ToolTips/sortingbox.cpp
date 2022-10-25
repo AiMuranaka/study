@@ -102,7 +102,6 @@ void SortingBox::mousePressEvent(QMouseEvent *event)
             previousPosition = event->pos();
             qDebug("mousePressEventのItemInMotionは%s",qPrintable(itemInMotion->toolTip()));
             shapeItems.move(index, shapeItems.size() - 1);
-            itemInMotion = &shapeItems[index-1];
             qDebug("mousePressEventのItemInMotionは%s",qPrintable(itemInMotion->toolTip()));
             update();
         }
