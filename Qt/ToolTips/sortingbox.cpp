@@ -1,5 +1,6 @@
 #include "sortingbox.h"
 
+#include <stdio.h>
 #include <QApplication>
 #include <QMouseEvent>
 #include <QIcon>
@@ -45,8 +46,9 @@ SortingBox::SortingBox(QWidget *parent)
 
     createShapeItem(circlePath, tr("Circle"), initialItemPosition(circlePath),
                     initialItemColor());
-    createShapeItem(squarePath, tr("Square"), initialItemPosition(squarePath),
+/*    createShapeItem(squarePath, tr("Square"), initialItemPosition(squarePath),
                     initialItemColor());
+                    */
     createShapeItem(trianglePath, tr("Triangle"),
                     initialItemPosition(trianglePath), initialItemColor());
 }
@@ -98,7 +100,10 @@ void SortingBox::mousePressEvent(QMouseEvent *event)
         if (index != -1) {
             itemInMotion = &shapeItems[index];
             previousPosition = event->pos();
+            qDebug("mousePressEventのItemInMotionは%s",qPrintable(itemInMotion->toolTip()));
             shapeItems.move(index, shapeItems.size() - 1);
+            itemInMotion = &shapeItems[index-1];
+            qDebug("mousePressEventのItemInMotionは%s",qPrintable(itemInMotion->toolTip()));
             update();
         }
     }
@@ -151,8 +156,10 @@ int SortingBox::itemAt(const QPoint &pos)
 
 void SortingBox::moveItemTo(const QPoint &pos)
 {
+    qDebug("moveItemToのItemInMotionは%s",qPrintable(itemInMotion->toolTip()));
     QPoint offset = pos - previousPosition;
     itemInMotion->setPosition(itemInMotion->position() + offset);
+    qDebug("moveItemToのItemInMotionは%s",qPrintable(itemInMotion->toolTip()));
     previousPosition = pos;
     update();
 }
@@ -197,7 +204,6 @@ QPoint SortingBox::initialItemPosition(const QPainterPath &path)
 {
     int x;
     int y = (height()/3);
- //   int y = (height() - qRound(path.controlPointRect().height()));
     if (shapeItems.size() == 0)
         x = ((3 * width()) / 2 - qRound(path.controlPointRect().width())) / 2;
     else
