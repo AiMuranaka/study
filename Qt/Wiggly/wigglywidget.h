@@ -17,6 +17,8 @@ protected:
     void paintEvent(QPaintEvent *event) override;
     void timerEvent(QTimerEvent *event) override;
 
+    void checkStep();
+
 private:
     QBasicTimer timer;
     QString text;
