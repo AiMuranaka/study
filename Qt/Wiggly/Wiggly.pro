@@ -10,12 +10,10 @@ CONFIG += c++17
 SOURCES += \
     main.cpp \
     dialog.cpp \
-    testwiggly.cpp \
     wigglywidget.cpp
 
 HEADERS += \
     dialog.h \
-    testwiggly.h \
     wigglywidget.h
 
 FORMS += \
@@ -25,3 +23,4 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+

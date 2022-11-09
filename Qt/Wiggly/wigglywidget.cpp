@@ -12,9 +12,7 @@ WigglyWidget::WigglyWidget(QWidget *parent)
     QFont newFont = font();
     newFont.setPointSize(newFont.pointSize() + 20);
     setFont(newFont);
-
-    timer.start(5000, this);
-    //timer.start(60, this);
+    timer.start(60, this);
 }
 
 void WigglyWidget::paintEvent(QPaintEvent * /* event */)
@@ -27,22 +25,14 @@ void WigglyWidget::paintEvent(QPaintEvent * /* event */)
     int x = (width() - metrics.horizontalAdvance(text)) / 2;
     int y = (height() + metrics.ascent() - metrics.descent()) / 2;
     QColor color;
-
-    qDebug("x : %d  ,y : %d", x, y);
-    qDebug("文字数: %d",text.size());
-
     QPainter painter(this);
     for (int i = 0; i < text.size(); ++i) {        
         int index = (step + i) % 16;
-        qDebug("index: %d",index);
 
         color.setHsv((15 - index) * 16, 255, 191);
         painter.setPen(color);
         painter.drawText(x, y - ((sineTable[index] * metrics.height()) / 400),
                          QString(text[i]));
-
-        qDebug("表示される　x座標 : %d  ,y座標 : %d", x, y - ((sineTable[index] * metrics.height()) / 400));
-        qDebug("表示される文字: %s",qPrintable(QString(text[i])));
         x += metrics.horizontalAdvance(text[i]);
     }
 }
@@ -50,18 +40,11 @@ void WigglyWidget::paintEvent(QPaintEvent * /* event */)
 void WigglyWidget::timerEvent(QTimerEvent *event)
 {
     int timerID = timer.timerId();
-    //timerID = NULL;
     if (event->timerId() == timerID) {
         ++step;
         update();
     } else {
         QWidget::timerEvent(event);
-        qDebug("else\n");
     }
-}
-
-void WigglyWidget::checkStep()
-{
-    qDebug("step : %d",step);
 }
 

@@ -19,7 +19,7 @@ protected:
 
     void checkStep();
 
-private:
+//private:
     QBasicTimer timer;
     QString text;
     int step;
