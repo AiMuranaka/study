@@ -9,19 +9,13 @@ class WigglyWidget : public QWidget
 
 public:
     WigglyWidget(QWidget *parent = nullptr);
+    int drawTextHeight(int sineTable, int metricsHeight);
 
-
-//protected:
+protected:
     void paintEvent(QPaintEvent *event) override;
     void timerEvent(QTimerEvent *event) override;
 
-    void checkStep();
-
-    int getStep()
-    {
-        return step;
-    }
-//private:
+private:
     QBasicTimer timer;
     QString text;
     int step;

@@ -5,18 +5,16 @@ CONFIG += qt warn_on depend_includepath testcase
 
 TEMPLATE = app
 
-SOURCES +=  tst_wigglytest.cpp \
-    dialog.cpp \
+SOURCES +=  \
     main.cpp \
+    tst_wigglytest.cpp \
     wigglywidget.cpp
 
 HEADERS += \
-    dialog.h \
     wigglywidget.h
 
 SUBDIRS += \
     Wiggly.pro
 
 DISTFILES += \
-    Wiggly.pro.user \
     WigglyTest.pro.user

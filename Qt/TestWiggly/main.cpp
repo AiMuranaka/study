@@ -1,5 +1,4 @@
-#include "tst_wigglytest.cpp"
-#include "dialog.h"
+#include "wigglytest.cpp"
 #include <QtTest>
 #include <QApplication>
 

@@ -12,6 +12,7 @@ public:
 private slots:
     void test_case1();
     void net_price();
+
 };
 
 WigglyTest::WigglyTest()

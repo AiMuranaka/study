@@ -31,10 +31,16 @@ void WigglyWidget::paintEvent(QPaintEvent * /* event */)
 
         color.setHsv((15 - index) * 16, 255, 191);
         painter.setPen(color);
-        painter.drawText(x, y - ((sineTable[index] * metrics.height()) / 400),
-                         QString(text[i]));
+        y = y - drawTextHeight(sineTable[index], metrics.height());
+        painter.drawText(x, y ,QString(text[i]));
         x += metrics.horizontalAdvance(text[i]);
     }
+}
+
+int WigglyWidget::drawTextHeight(int sineTable, int metricsHeight)
+{
+    int height = sineTable * metricsHeight / 400;
+    return height;
 }
 
 void WigglyWidget::timerEvent(QTimerEvent *event)
