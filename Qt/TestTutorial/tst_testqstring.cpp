@@ -1,10 +1,14 @@
-#include <QtTest/QtTest>
+#include <QtTest>
 
-class TestQString: public QObject
+// add necessary includes here
+
+class TestQString : public QObject
 {
     Q_OBJECT
+
 private slots:
     void toUpper();
+
 };
 
 void TestQString::toUpper()
@@ -13,5 +17,6 @@ void TestQString::toUpper()
     QCOMPARE(str.toUpper(), QString("HELLO"));
 }
 
-QTEST_MAIN(TestQString)
-//#include "tst_testqstring.moc"
+QTEST_APPLESS_MAIN(TestQString)
+
+#include "tst_testqstring.moc"
