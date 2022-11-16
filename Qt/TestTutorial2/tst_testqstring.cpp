@@ -1,7 +1,5 @@
 #include <QtTest>
 
-// add necessary includes here
-
 class TestQString : public QObject
 {
     Q_OBJECT
