@@ -1,5 +1,4 @@
 #include <QtTest>
-#include <QPointF>
 #include "../shapeitem.h"
 
 class TestToolTips : public QObject
@@ -43,7 +42,6 @@ void TestToolTips::test_tooltip()
     QString testToolTip ="Test";
     shapeItem.setToolTip(testToolTip);
     QCOMPARE(shapeItem.toolTip(),"Test");
-
 }
 
 QTEST_APPLESS_MAIN(TestToolTips)
