@@ -1,4 +1,5 @@
 #include <QtTest>
+#include <QPointF>
 #include "../shapeitem.h"
 
 class TestToolTips : public QObject
@@ -10,43 +11,40 @@ private slots:
     void test_position();
     void test_color();
     void test_tooltip();
-
 };
 
 void TestToolTips::test_path()
 {
     ShapeItem shapeItem;
-    QPainterPath testPath;
+    QPainterPath testPath = QPainterPath(QPoint(1,1));
     shapeItem.setPath(testPath);
-    QCOMPARE(shapeItem.path(),testPath);
-
+    QCOMPARE(shapeItem.path(),QPainterPath(QPoint(1,1)));
 }
 
 void TestToolTips::test_position()
 {
     ShapeItem shapeItem;
-    QPoint testPosition;
+    QPoint testPosition = QPoint(1,1);
     shapeItem.setPosition(testPosition);
-    QCOMPARE(shapeItem.position(),testPosition);
-
+    QCOMPARE(shapeItem.position(),QPoint(1,1));
 }
+
 void TestToolTips::test_color()
 {
     ShapeItem shapeItem;
-    QColor testColor;
+    QColor testColor = Qt::red;
     shapeItem.setColor(testColor);
-    QCOMPARE(shapeItem.color(),testColor);
-
+    QCOMPARE(shapeItem.color(),Qt::red);
 }
 
 void TestToolTips::test_tooltip()
 {
     ShapeItem shapeItem;
-    QString testToolTip;
+    QString testToolTip ="Test";
     shapeItem.setToolTip(testToolTip);
-    QCOMPARE(shapeItem.toolTip(),testToolTip);
+    QCOMPARE(shapeItem.toolTip(),"Test");
 
 }
-QTEST_APPLESS_MAIN(TestToolTips)
 
+QTEST_APPLESS_MAIN(TestToolTips)
 #include "tst_testtooltips.moc"
