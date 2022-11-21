@@ -15,15 +15,15 @@ private slots:
 void TestToolTips::test_path()
 {
     ShapeItem shapeItem;
-    QPainterPath testPath = QPainterPath(QPoint(1,1));
-    shapeItem.setPath(testPath);
+    QPoint testPath(1,1);
+    shapeItem.setPath(QPainterPath(testPath));
     QCOMPARE(shapeItem.path(),QPainterPath(QPoint(1,1)));
 }
 
 void TestToolTips::test_position()
 {
     ShapeItem shapeItem;
-    QPoint testPosition = QPoint(1,1);
+    QPoint testPosition(1,1);
     shapeItem.setPosition(testPosition);
     QCOMPARE(shapeItem.position(),QPoint(1,1));
 }
@@ -31,7 +31,7 @@ void TestToolTips::test_position()
 void TestToolTips::test_color()
 {
     ShapeItem shapeItem;
-    QColor testColor = Qt::red;
+    QColor testColor(Qt::red);
     shapeItem.setColor(testColor);
     QCOMPARE(shapeItem.color(),Qt::red);
 }
@@ -39,7 +39,7 @@ void TestToolTips::test_color()
 void TestToolTips::test_tooltip()
 {
     ShapeItem shapeItem;
-    QString testToolTip ="Test";
+    QString testToolTip ("Test");
     shapeItem.setToolTip(testToolTip);
     QCOMPARE(shapeItem.toolTip(),"Test");
 }
