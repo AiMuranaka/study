@@ -13,43 +13,32 @@ private slots:
 
 void TetrixTest::minX_data()
 {
+    QTest::addColumn<TetrixPiece>("shape");
     QTest::addColumn<int>("expected");
-    QTest::addColumn<int>("result");
 
-    TetrixPiece test;
-    test.setShape(NoShape);
-    QTest::newRow("positive value") << test.minX() << 0;
+    QTest::newRow("NoShape") << NoShape << 0;
 
-    test.setShape(ZShape);
-    QTest::newRow("ZShape") << test.minX() << -1;
+    QTest::newRow("ZShape") << ZShape << -1;
 
-    test.setShape(SShape);
-    QTest::newRow("SShape") << test.minX() << 0;
+    QTest::newRow("SShape") << SShape << 0;
 
-    test.setShape(LineShape);
-    QTest::newRow("LineShape") << test.minX() << 0;
+    QTest::newRow("LineShape") << LineShape << 0;
 
-    test.setShape(TShape);
-    QTest::newRow("TShape") << test.minX() << -1;
+    QTest::newRow("TShape") << TShape << -1;
 
-    test.setShape(SquareShape);
-    QTest::newRow("SquareShape") << test.minX() << 0;
+    QTest::newRow("SquareShape")<< SquareShape << 0;
 
-    test.setShape(LShape);
-    QTest::newRow("LShape") << test.minX() << -1;
+    QTest::newRow("LShape") << LShape << -1;
 
-    test.setShape(MirroredLShape);
-    QTest::newRow("MirroredLShape") << test.minX() << 0;
-
-
+    QTest::newRow("MirroredLShape") << MirroredLShape << 0;
 }
 
 void TetrixTest::test_minX()
 {
+     QFETCH(TetrixPiece, shape);
      QFETCH(int, expected);
-     QFETCH(int, result);
 
-     QCOMPARE(expected, result);
+     QCOMPARE(shape.minX(),expected);
 }
 QTEST_MAIN(TetrixTest)
 
