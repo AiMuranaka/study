@@ -1,6 +1,8 @@
 #include <QtTest>
 #include <QCoreApplication>
+#include <QMetaType>
 #include "../tetrixpiece.h"
+Q_DECLARE_METATYPE( TetrixShape )
 
 class TetrixTest : public QObject
 {
@@ -13,35 +15,35 @@ private slots:
 
 void TetrixTest::minX_data()
 {
-    QTest::addColumn<QString>("shape");
+    QTest::addColumn<TetrixShape>("shapeType");
     QTest::addColumn<int>("expected");
 
-    QTest::newRow("NoShape") << "NoShape" << 0;
+    QTest::newRow("NoShape") << NoShape << 0;
 
-    QTest::newRow("ZShape") << "ZShape" << -1;
+    QTest::newRow("ZShape") << ZShape << -1;
 
-    QTest::newRow("SShape") << "SShape" << 0;
+    QTest::newRow("SShape") << SShape << 0;
 
-    QTest::newRow("LineShape") << "LineShape" << 0;
+    QTest::newRow("LineShape") << LineShape << 0;
 
-    QTest::newRow("TShape") << "TShape "<< -1;
+    QTest::newRow("TShape") << TShape << -1;
 
-    QTest::newRow("SquareShape")<< "SquareShape" << 0;
+    QTest::newRow("SquareShape")<< SquareShape << 0;
 
-    QTest::newRow("LShape") << "LShape" << -1;
+    QTest::newRow("LShape") << LShape << -1;
 
-    QTest::newRow("MirroredLShape") << "MirroredLShape" << 0;
+    QTest::newRow("MirroredLShape") << MirroredLShape << 0;
 }
 
 void TetrixTest::test_minX()
 {
-     QFETCH(QString, shape);
+     QFETCH(TetrixShape, shapeType);
      QFETCH(int, expected);
 
      TetrixPiece test;
-     test.setShape();
-
+     test.setShape(shapeType);
      QCOMPARE(test.minX(),expected);
+
 }
 QTEST_MAIN(TetrixTest)
 
