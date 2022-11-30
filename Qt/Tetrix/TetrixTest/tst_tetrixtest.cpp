@@ -10,7 +10,13 @@ class TetrixTest : public QObject
 
 private slots:
     void minX_data();
-    void test_minX();
+    void minX();
+    void maxX_data();
+    void maxX();
+    void minY_data();
+    void minY();
+    void maxY_data();
+    void maxY();
 };
 
 void TetrixTest::minX_data()
@@ -35,16 +41,111 @@ void TetrixTest::minX_data()
     QTest::newRow("MirroredLShape") << MirroredLShape << 0;
 }
 
-void TetrixTest::test_minX()
+void TetrixTest::minX()
 {
-     QFETCH(TetrixShape, shapeType);
-     QFETCH(int, expected);
+    QFETCH(int, expected);
+    QFETCH(TetrixShape, shapeType);
 
-     TetrixPiece test;
-     test.setShape(shapeType);
-     QCOMPARE(test.minX(),expected);
-
+    TetrixPiece test;
+    test.setShape(shapeType);
+    QCOMPARE(test.minX(),expected);
 }
-QTEST_MAIN(TetrixTest)
 
+void TetrixTest::maxX_data()
+{
+    QTest::addColumn<TetrixShape>("shapeType");
+    QTest::addColumn<int>("expected");
+
+    QTest::newRow("NoShape") << NoShape << 0;
+
+    QTest::newRow("ZShape") << ZShape << 0;
+
+    QTest::newRow("SShape") << SShape << 1;
+
+    QTest::newRow("LineShape") << LineShape << 0;
+
+    QTest::newRow("TShape") << TShape << 1;
+
+    QTest::newRow("SquareShape")<< SquareShape << 1;
+
+    QTest::newRow("LShape") << LShape << 0;
+
+    QTest::newRow("MirroredLShape") << MirroredLShape << 1;
+}
+
+void TetrixTest::maxX()
+{
+    QFETCH(int, expected);
+    QFETCH(TetrixShape, shapeType);
+
+    TetrixPiece test;
+    test.setShape(shapeType);
+    QCOMPARE(test.maxX(),expected);
+}
+
+void TetrixTest::minY_data()
+{
+    QTest::addColumn<TetrixShape>("shapeType");
+    QTest::addColumn<int>("expected");
+
+    QTest::newRow("NoShape") << NoShape << 0;
+
+    QTest::newRow("ZShape") << ZShape << -1;
+
+    QTest::newRow("SShape") << SShape << -1;
+
+    QTest::newRow("LineShape") << LineShape << -1;
+
+    QTest::newRow("TShape") << TShape << 0;
+
+    QTest::newRow("SquareShape")<< SquareShape << 0;
+
+    QTest::newRow("LShape") << LShape << -1;
+
+    QTest::newRow("MirroredLShape") << MirroredLShape << -1;
+}
+
+void TetrixTest::minY()
+{
+    QFETCH(int, expected);
+    QFETCH(TetrixShape, shapeType);
+
+    TetrixPiece test;
+    test.setShape(shapeType);
+    QCOMPARE(test.minY(),expected);
+}
+
+void TetrixTest::maxY_data()
+{
+    QTest::addColumn<TetrixShape>("shapeType");
+    QTest::addColumn<int>("expected");
+
+    QTest::newRow("NoShape") << NoShape << 0;
+
+    QTest::newRow("ZShape") << ZShape << 1;
+
+    QTest::newRow("SShape") << SShape << 1;
+
+    QTest::newRow("LineShape") << LineShape << 2;
+
+    QTest::newRow("TShape") << TShape << 1;
+
+    QTest::newRow("SquareShape")<< SquareShape << 1;
+
+    QTest::newRow("LShape") << LShape << 1;
+
+    QTest::newRow("MirroredLShape") << MirroredLShape << 1;
+}
+
+void TetrixTest::maxY()
+{
+    QFETCH(int, expected);
+    QFETCH(TetrixShape, shapeType);
+
+    TetrixPiece test;
+    test.setShape(shapeType);
+    QCOMPARE(test.maxY(),expected);
+}
+
+QTEST_MAIN(TetrixTest)
 #include "tst_tetrixtest.moc"
