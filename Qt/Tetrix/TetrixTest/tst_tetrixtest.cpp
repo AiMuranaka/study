@@ -41,7 +41,10 @@ void TetrixTest::minX()
 
     TetrixPiece test;
     test.setShape(shapeType);
-    QCOMPARE(test.minX(),expected);
+
+    QBENCHMARK {
+        QCOMPARE(test.minX(),expected);
+    }
 }
 
 void TetrixTest::maxX_data()
@@ -66,7 +69,10 @@ void TetrixTest::maxX()
 
     TetrixPiece test;
     test.setShape(shapeType);
-    QCOMPARE(test.maxX(),expected);
+
+    QBENCHMARK {
+        QCOMPARE(test.maxX(),expected);
+    }
 }
 
 void TetrixTest::minY_data()
@@ -91,7 +97,10 @@ void TetrixTest::minY()
 
     TetrixPiece test;
     test.setShape(shapeType);
-    QCOMPARE(test.minY(),expected);
+
+    QBENCHMARK {
+        QCOMPARE(test.minY(),expected);
+    }
 }
 
 void TetrixTest::maxY_data()
@@ -116,7 +125,10 @@ void TetrixTest::maxY()
 
     TetrixPiece test;
     test.setShape(shapeType);
-    QCOMPARE(test.maxY(),expected);
+
+    QBENCHMARK {
+        QCOMPARE(test.maxY(),expected);
+    }
 }
 
 QTEST_MAIN(TetrixTest)

@@ -9,9 +9,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES +=  tst_tetrixtest.cpp \
-    ../tetrixboard.cpp \
     ../tetrixpiece.cpp
 
 HEADERS += \
-    ../tetrixboard.h \
     ../tetrixpiece.h
