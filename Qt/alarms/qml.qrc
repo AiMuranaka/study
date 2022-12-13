@@ -4,5 +4,6 @@
         <file>AlarmDialog.qml</file>
         <file>AlermDelegate.qml</file>
         <file>TumblerDelegate.qml</file>
+        <file>AlermModel.qml</file>
     </qresource>
 </RCC>
