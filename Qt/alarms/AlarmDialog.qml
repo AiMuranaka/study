@@ -73,7 +73,6 @@ Dialog {
                 id: dayTumbler
 
                 function updateModel() {
-                    // Populate the model with days of the month. For example: [0, ..., 30]
                     var previousIndex = dayTumbler.currentIndex
                     var array = []
                     var newDays = datePicker.days[monthTumbler.currentIndex]
@@ -101,8 +100,6 @@ Dialog {
             }
             Tumbler {
                 id: yearTumbler
-
-                // This array is populated with the next three years. For example: [2018, 2019, 2020]
                 readonly property var years: (function() {
                     var currentYear = new Date().getFullYear()
                     return [0, 1, 2].map(function(value) { return value + currentYear; })
