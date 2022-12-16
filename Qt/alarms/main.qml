@@ -12,18 +12,15 @@ ApplicationWindow {
     height: 500
     visible: true
 
+    Audio {
+        id: alarMusic
+        source: "music/alarm.mp3"
+    }
     Timer {
         interval: 3000; running: true; repeat: true
-        onTriggered: time.text = Date().toString()
+        onTriggered: alarMusic.play()
     }
-    Audio {
-        id: playMusic
-        source: "music\alarm.mp3"
 
-    }
-    Text { id: time
-    Application: playMusic.play()
-    }
 
     ListView {
         id: alarmListView
