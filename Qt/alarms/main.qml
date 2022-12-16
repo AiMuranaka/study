@@ -1,5 +1,6 @@
 import QtQuick 2.11
 import QtQuick.Controls 2.4
+import QtMultimedia 5.15
 import QtQuick.Controls.Material 2.4
 import QtQuick.Layouts 1.11
 import QtQuick.Window 2.11
@@ -10,6 +11,19 @@ ApplicationWindow {
     width: 400
     height: 500
     visible: true
+
+    Timer {
+        interval: 3000; running: true; repeat: true
+        onTriggered: time.text = Date().toString()
+    }
+    Audio {
+        id: playMusic
+        source: "music\alarm.mp3"
+
+    }
+    Text { id: time
+    Application: playMusic.play()
+    }
 
     ListView {
         id: alarmListView

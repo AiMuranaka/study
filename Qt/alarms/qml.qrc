@@ -5,5 +5,6 @@
         <file>AlarmDelegate.qml</file>
         <file>TumblerDelegate.qml</file>
         <file>AlarmModel.qml</file>
+        <file>AlarmManager.qml</file>
     </qresource>
 </RCC>
