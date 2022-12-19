@@ -1,22 +1,16 @@
 import QtQuick 2.0
+import QtMultimedia 5.15
 
 Item{
-    /*
-    property var locale: Qt.locale()
-    property string dateTimeString: "Tue 2013-09-17 10:56:06"
 
-    Component.onCompleted: {
-        print(Date.fromLocaleString(locale, dateTimeString, "ddd yyyy-MM-dd hh:mm:ss"));
+    Audio {
+        id: alarMusic
+        source: "music/alarm.mp3"
     }
-*/
-
     Timer {
-        interval: 500; running: true; repeat: true
-        onTriggered: time.text = Date().toString()
+        interval: 3000; running: true; repeat: true
+        onTriggered: alarMusic.play()
     }
-
-    Text { id: time }
-
 }
 
 

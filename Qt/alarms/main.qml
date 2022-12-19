@@ -12,20 +12,38 @@ ApplicationWindow {
     height: 500
     visible: true
 
-    Audio {
-        id: alarMusic
-        source: "music/alarm.mp3"
+    Text {
+        text: "Click Me!";
+        font.pointSize: 24;
+        width: 150; height: 50;
+
+        Audio {
+            id: playMusic
+            source: "music/alarm.wav"
+            volume: 1.0
+            muted: false
+        }
+        MouseArea {
+            id: playArea
+            anchors.fill: parent
+            onClicked: { playMusic.play() }
+        }
+    }
+/*
     }
     Timer {
         interval: 3000; running: true; repeat: true
-        onTriggered: alarMusic.play()
+        onTriggered: test.text = "test"
     }
-
+    Text {
+        id: test
+    }
+*/
 
     ListView {
         id: alarmListView
         anchors.fill: parent
-        model: AlarmModel { id: alarmModel }
+//        model: AlarmModel { id: alarmModel }
         delegate: AlarmDelegate {}
     }
 
@@ -42,6 +60,6 @@ ApplicationWindow {
         id: alarmDialog
         x: Math.round((parent.width - width) / 2)
         y: Math.round((parent.height - height) / 2)
-        alarmModel: alarmListView.model
+//        alarmModel: alarmListView.model
     }
 }
