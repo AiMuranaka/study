@@ -1,4 +1,5 @@
 import QtQuick 2.11
+import QtQml 2.0
 
 ListModel {
     id: alarmModel
