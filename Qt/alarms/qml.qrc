@@ -5,7 +5,7 @@
         <file>AlarmDelegate.qml</file>
         <file>TumblerDelegate.qml</file>
         <file>AlarmModel.qml</file>
-        <file>AlarmTimer.qml</file>
+        <file>AlarmElement.qml</file>
         <file>music/alarm.wav</file>
     </qresource>
 </RCC>

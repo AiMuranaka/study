@@ -1,15 +1,16 @@
 import QtQuick 2.11
 import QtQml 2.0
+import QtMultimedia 5.15
 
 ListModel {
     id: alarmModel
 
     ListElement {
-        hour: 6
-        minute: 0
-        day: 2
-        month: 8
-        year: 2018
+        hour: 16
+        minute: 13
+        day: 21
+        month: 12
+        year: 2022
         activated: true
         label: "Wake up"
         repeat: true
@@ -22,6 +23,29 @@ ListModel {
             ListElement { dayOfWeek: 5; repeat: false },
             ListElement { dayOfWeek: 6; repeat: false }
         ]
+        /*
+
+      */
+        /*
+        Audio {
+            id: playMusic
+            source: "music/alarm.wav"
+            volume: 1.0
+            muted: false
+        }
+
+
+        Timer {
+            interval: (minute-Date().getMinutes())*60;
+            running: true;
+            repeat: true
+            onTriggered:  {
+                playMusic.play()
+            }
+        }
+        */
+
+
     }
     ListElement {
         hour: 6

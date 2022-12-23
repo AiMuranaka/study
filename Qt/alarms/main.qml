@@ -25,6 +25,9 @@ ApplicationWindow {
         }
     }
 
+    Component.onCompleted: {
+      print("現在%d",Date().getMinutes())
+  }
 
     ListView {
         id: alarmListView

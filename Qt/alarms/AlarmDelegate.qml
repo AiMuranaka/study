@@ -19,7 +19,7 @@ ItemDelegate {
                 id: dateColumn
 
                 readonly property date alarmDate: new Date(
-                    model.year, model.month - 1, model.day, model.hour, model.minute)
+                                                      model.year, model.month - 1, model.day, model.hour, model.minute)
 
                 Label {
                     id: timeLabel
