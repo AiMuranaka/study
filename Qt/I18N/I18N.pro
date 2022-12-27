@@ -15,7 +15,6 @@ TRANSLATIONS += translations/i18n_ar.ts \
                 translations/i18n_eo.ts \
                 translations/i18n_fr.ts \
                 translations/i18n_it.ts \
-                translations/i18n_jp.ts \
                 translations/i18n_ko.ts \
                 translations/i18n_no.ts \
                 translations/i18n_ru.ts \
@@ -25,3 +24,6 @@ TRANSLATIONS += translations/i18n_ar.ts \
 # install
 target.path = $$[QT_INSTALL_EXAMPLES]/widgets/tools/I18N
 INSTALLS += target
+
+DISTFILES += \
+    translations/i18n_ch.ts

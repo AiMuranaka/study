@@ -1,53 +1,55 @@
-<!DOCTYPE TS><TS>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="zh_CN">
 <context>
     <name>MainWindow</name>
     <message>
         <source>View</source>
-        <translation>Ansicht</translation>
+        <translation>显示方式</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;Datei</translation>
+        <translation>其文曰</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation>Be&amp;enden</translation>
+        <translation>&amp;Konec</translation>
     </message>
     <message>
         <source>First</source>
-        <translation>Erstens</translation>
+        <translation>第一行</translation>
     </message>
     <message>
         <source>Third</source>
-        <translation>Drittens</translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation>Deutsch</translation>
+        <translation>第三行</translation>
     </message>
     <message>
         <source>Language: %1</source>
-        <translation>Sprache: %1</translation>
+        <translation>语言%1</translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation>中文</translation>
     </message>
     <message>
         <source>Oblique</source>
-        <translation>Schief</translation>
+        <translation>斜投影</translation>
     </message>
     <message>
         <source>Second</source>
-        <translation>Zweitens</translation>
+        <translation>第二行</translation>
     </message>
     <message>
         <source>Isometric</source>
-        <translation>Isometrisch</translation>
+        <translation>及轴测投影</translation>
     </message>
     <message>
         <source>Perspective</source>
-        <translation>Perspektivisch</translation>
+        <translation>透视</translation>
     </message>
     <message>
         <source>Internationalization Example</source>
-        <translation>Internationalisierungsbeispiel</translation>
+        <translation>国际化示例</translation>
     </message>
     <message>
         <source>LTR</source>
