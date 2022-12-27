@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="zh_CN">
+<context>
+    <name>MainWindow</name>
+    <message>
+        <source>View</source>
+        <translation>显示方式</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation>其文曰</translation>
+    </message>
+    <message>
+        <source>E&amp;xit</source>
+        <translation>&amp;Konec</translation>
+    </message>
+    <message>
+        <source>First</source>
+        <translation>第一行</translation>
+    </message>
+    <message>
+        <source>Third</source>
+        <translation>第三行</translation>
+    </message>
+    <message>
+        <source>Language: %1</source>
+        <translation>语言%1</translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation>中文</translation>
+    </message>
+    <message>
+        <source>Oblique</source>
+        <translation>斜投影</translation>
+    </message>
+    <message>
+        <source>Second</source>
+        <translation>第二行</translation>
+    </message>
+    <message>
+        <source>Isometric</source>
+        <translation>及轴测投影</translation>
+    </message>
+    <message>
+        <source>Perspective</source>
+        <translation>透视</translation>
+    </message>
+    <message>
+        <source>Internationalization Example</source>
+        <translation>国际化示例</translation>
+    </message>
+    <message>
+        <source>LTR</source>
+        <translation>LTR</translation>
+    </message>
+</context>
+</TS>
