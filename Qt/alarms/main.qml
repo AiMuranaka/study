@@ -1,5 +1,6 @@
 import QtQuick 2.11
 import QtQuick.Controls 2.4
+import QtMultimedia 5.15
 import QtQuick.Controls.Material 2.4
 import QtQuick.Layouts 1.11
 import QtQuick.Window 2.11
@@ -11,10 +12,27 @@ ApplicationWindow {
     height: 500
     visible: true
 
+    Audio {
+        id: playMusic
+        source: "music/alarm.wav"
+        volume: 1.0
+        muted: false
+    }
+    Timer {
+        interval: 3000; running: true; repeat: true
+        onTriggered:  {
+            playMusic.play()
+        }
+    }
+
+    Component.onCompleted: {
+      print("現在%d",Date().getMinutes())
+  }
+
     ListView {
         id: alarmListView
         anchors.fill: parent
-        model: AlarmModel {}
+        model: AlarmModel { id: alarmModel }
         delegate: AlarmDelegate {}
     }
 
